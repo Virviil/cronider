@@ -4,6 +4,10 @@ defmodule Cronider.IntervalPart do
   def from_list(list) do
     struct(%Cronider.IntervalPart{}, list)
   end
+
+  def from_crontab(crontab) do
+    from_list(Cronider.Parser.parse(crontab))
+  end
   
   def member?(part, {mi, ho, dm, mo, dw}) do
     with true <- part.minutes |> Enum.member?(mi),
@@ -14,3 +18,4 @@ defmodule Cronider.IntervalPart do
     do: true
   end
 end
+
